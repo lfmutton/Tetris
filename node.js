@@ -1,10 +1,12 @@
 class Grid {
     constructor(matrix) {
         this.matrix = matrix;
-        this.uiContext = this.DrawGrid(600, 900)
+        this.uiContext = this.DrawGrid(420, 580, "#f1b1");
+        this.outlineContext = this.DrawGrid(320, 480, "#111");
     }
     DrawGrid(w, h, color = "#111") {
-        this.canvas = document.querySelector("canvas")
+
+        this.canvas = document.createElement("canvas")
         this.context = this.canvas.getContext("2d")
         this.width = this.canvas.height = w
         this.height = this.canvas.width = h
@@ -58,5 +60,4 @@ const matrix = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-const gridSystem = new Grid(matrix)
-gridSystem.DrawGrid
+const gridSystem = new Grid(matrix);
