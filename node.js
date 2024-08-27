@@ -3,7 +3,7 @@ class Grid {
         this.matrix = matrix;
         this.uiContext = this.DrawGrid(600, 900)
     }
-    DrawGrid(w, h, color = "#1111") {
+    DrawGrid(w, h, color = "#111") {
         this.canvas = document.querySelector("canvas")
         this.context = this.canvas.getContext("2d")
         this.width = this.canvas.height = w
@@ -18,13 +18,21 @@ class Grid {
     }
 }
 
-class Square { }
-class NormalL { }
-class InvertedL { }
-class NormalZ { }
-class InvertedZ { }
-class Line { }
-class LastPiece { }
+class Game {
+    Start() {
+        this.gameOver = false
+        while (gameOver != true) {
+            if (this.IsFinished()) {
+                this.gameOver = true
+            }
+        }
+    }
+    IsFinished() {
+        return true
+    }
+}
+
+
 
 const matrix = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -51,3 +59,4 @@ const matrix = [
 ]
 
 const gridSystem = new Grid(matrix)
+gridSystem.DrawGrid
