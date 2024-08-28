@@ -1,11 +1,13 @@
 class Grid {
     constructor(matrix) {
         this.matrix = matrix;
-        this.uiContext = this.DrawGrid(315, 610, "#322d62");
-        this.outlineContext = this.DrawGrid(275, 550, "#111");
+        this.uiContext = this.DrawGrid(315, 610, "#000000");
+        this.outlineContext = this.DrawGrid(275, 550, "#9b99ab");
         this.topContext = this.DrawGrid(275, 500, "#111", true)
-        this.cellSize = 30
-        this.padding = 4
+        this.cellSize = 26
+
+        this.padding = 0.3
+
     }
     DrawGrid(w, h, color = "#111", trasparent = false) {
 
@@ -17,17 +19,41 @@ class Grid {
         this.canvas.style.background = color
         if (trasparent)
             this.canvas.style.backgroundColor = "transparent"
-        this.canvas.style.marginLeft = (window.innerWidth / 2) - (w / 2) + "px"
-        this.canvas.style.marginTop = (window.innerHeight / 2) - (h / 2) + "px"
+        PutLocation(this.context, w, h)
         document.body.appendChild(this.canvas)
         return this.context
     }
+    Paint() {
+        let w = (this.cellSize + this.padding) * this.matrix[0].length - this.padding
+        let h = (this.cellSize + this.padding) * this.matrix.length - this.padding
+
+        this.outlineContext.canvas.width = w
+        this.outlineContext.canvas.height = h
+
+
+        PutLocation(this.outlineContext, w, h)
+
+        PutLocation(this.topContext, w, h)
+
+        for (let l = 0; l < this.matrix[0].length; l++) {
+            for (let c = 0; c < this.matrix.length; c++) {
+                this.outlineContext.fillStyle = this.matrix[c][l] > 0 ? "#fff" : "#000000"
+                this.outlineContext.fillRect(l * (this.cellSize + this.padding), c * (this.cellSize + this.padding), this.cellSize, this.cellSize);
+            }
+        }
+    }
 }
+
+function PutLocation(ctx, w, h) {
+    ctx.canvas.style.marginLeft = (window.innerWidth / 2) - (w / 2) + "px"
+    ctx.canvas.style.marginTop = (window.innerHeight / 2) - (h / 2) + "px"
+}
+
 
 class Game {
     Start() {
         this.gameOver = false
-        while (gameOver != true) {
+        while (this.gameOver != true) {
             if (this.IsFinished()) {
                 this.gameOver = true
             }
@@ -37,7 +63,6 @@ class Game {
         return true
     }
 }
-
 
 
 const matrix = [
@@ -62,7 +87,8 @@ const matrix = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
 const gridSystem = new Grid(matrix);
+gridSystem.Paint();
