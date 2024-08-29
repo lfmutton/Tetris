@@ -44,6 +44,33 @@ class Grid {
     }
 }
 
+const FORMATS = {
+    0: [
+        [2],
+        [2],
+        [2],
+        [2]
+    ],
+    1: [
+        [2, 0],
+        [2, 0],
+        [2, 0],
+        [2, 2]
+    ],
+    2: [
+        [0, 2, 0],
+        [2, 2, 2]
+    ],
+    3: [
+        [2, 2],
+        [2, 2]
+    ],
+    4: [
+        [2, 2, 0],
+        [0, 2, 2]
+    ]
+}
+
 function PutLocation(ctx, w, h) {
     ctx.canvas.style.marginLeft = (window.innerWidth / 2) - (w / 2) + "px"
     ctx.canvas.style.marginTop = (window.innerHeight / 2) - (h / 2) + "px"
@@ -54,6 +81,7 @@ class Game {
     Start() {
         this.gameOver = false
         while (this.gameOver != true) {
+
             if (this.IsFinished()) {
                 this.gameOver = true
             }
